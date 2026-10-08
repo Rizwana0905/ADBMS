@@ -1,1 +1,1 @@
-alter table Hospital4 drop column jod;
+drop table Hospital15;
