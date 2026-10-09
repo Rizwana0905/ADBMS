@@ -1,0 +1,14 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    a NUMBER := 5;
+    f NUMBER := 1;
+BEGIN
+    WHILE (a > 0) LOOP
+        f := f * a;
+        a := a - 1;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Factorial is: ' || f);
+END;
+/
