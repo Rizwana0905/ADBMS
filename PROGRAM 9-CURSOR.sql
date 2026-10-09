@@ -1,0 +1,46 @@
+SET SERVEROUTPUT ON;
+
+CREATE TABLE PRODUCT (PRODUCT_ID NUMBER,PRODUCT_NAME VARCHAR2(50),PRICE NUMBER);
+
+INSERT INTO PRODUCT VALUES (101, 'Pen', 100);
+INSERT INTO PRODUCT VALUES (102, 'Book', 200);
+INSERT INTO PRODUCT VALUES (103, 'Bag', 500);
+
+COMMIT;
+
+BEGIN
+    UPDATE PRODUCT
+    SET PRICE = PRICE + 50
+    WHERE PRODUCT_ID = 101;
+
+    DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' row updated');
+END;
+
+DECLARE
+    CURSOR c1 IS
+        SELECT PRODUCT_ID, PRODUCT_NAME, PRICE
+        FROM PRODUCT;
+
+    v_id PRODUCT.PRODUCT_ID%TYPE;
+    v_name PRODUCT.PRODUCT_NAME%TYPE;
+    v_price PRODUCT.PRICE%TYPE;
+
+BEGIN
+    OPEN c1;
+
+    LOOP
+        FETCH c1 INTO v_id, v_name, v_price;
+
+        EXIT WHEN c1%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'ID: ' || v_id ||
+            ' Name: ' || v_name ||
+            ' Price: ' || v_price
+        );
+    END LOOP;
+
+    CLOSE c1;
+END;
+
+
